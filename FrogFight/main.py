@@ -1,6 +1,6 @@
 import asyncio
 import random
-from classes import Assassin, Adventurer, Craftsman
+from classes import Assassin, Adventurer, Craftsman, Sniper, Tank
 
 
 async def fight(frog1, frog2):
@@ -25,7 +25,7 @@ async def fight(frog1, frog2):
 
 
 async def run_fight():
-    frog_classes = [Assassin, Adventurer, Craftsman]
+    frog_classes = [Assassin, Adventurer, Craftsman, Sniper, Tank]
     frog1_class = random.choice(frog_classes)
     frog2_class = random.choice(frog_classes)
 
