@@ -45,7 +45,7 @@ class Tank(Frog):
         super().__init__()
 
     def calculate_armor(self):
-        return randint(floor(self.armor / 2), self.armor)
+        return randint(floor(self.armor / 2), floor(self.armor))
 
     def modify_params(self):
         pass

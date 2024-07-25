@@ -19,4 +19,4 @@ class Frog(ABC):
         return randint(floor(self.attack / 2), floor(self.attack))
 
     def calculate_armor(self):
-        return randint(0, self.armor)
+        return randint(0, floor(self.armor))
