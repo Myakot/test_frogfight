@@ -1,9 +1,12 @@
 import asyncio
 import random
+
 from classes import Assassin, Adventurer, Craftsman, Sniper, Tank
+from logger import logger
 
 
 async def fight(frog1, frog2):
+
     frog1.modify_params()
     frog2.modify_params()
 
@@ -14,13 +17,19 @@ async def fight(frog1, frog2):
         frog1_damage = frog1.calculate_damage() - frog2.calculate_armor()
         frog2_health -= frog1_damage
 
+        logger.debug(f"{frog1.__class__.__name__} deals {frog1_damage} damage and has {frog1.armor} armor")
+
         if frog2_health <= 0:
+            logger.info(f"{frog1.__class__.__name__} wins the battle")
             return 1
 
         frog2_damage = frog2.calculate_damage() - frog1.calculate_armor()
         frog1_health -= frog2_damage
 
+        logger.debug(f"{frog2.__class__.__name__} deals {frog2_damage} damage and has {frog2.armor} armor")
+
         if frog1_health <= 0:
+            logger.info(f"{frog2.__class__.__name__} wins the battle")
             return 2
 
 
@@ -40,9 +49,15 @@ async def run_battles():
     frog1_wins = 0
     frog2_wins = 0
 
+    tasks = []
     for _ in range(100):
-        winner = await run_fight()
-        if winner == 1:
+        tasks.append(run_fight())
+        tasks.append(run_fight())
+
+    results = await asyncio.gather(*tasks)
+
+    for result in results:
+        if result == 1:
             frog1_wins += 1
         else:
             frog2_wins += 1
@@ -52,7 +67,7 @@ async def run_battles():
 
 
 async def main():
-    await asyncio.gather(run_battles(), run_battles())
+    await run_battles()
 
 
 asyncio.run(main())

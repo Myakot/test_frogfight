@@ -1,6 +1,6 @@
 from config import ASSASSIN_HEALTH_MULT, ADVENTURER_ATTACK_MULT, CRAFTSMAN_ARMOR_MULT
-import random
-import math
+from random import randint
+from math import floor
 
 from frog import Frog
 
@@ -34,7 +34,7 @@ class Sniper(Frog):
         super().__init__()
 
     def calculate_damage(self):
-        return random.randint(math.floor(self.attack / 2), math.floor(self.attack * 2))
+        return randint(floor(self.attack / 2), floor(self.attack * 2))
 
     def modify_params(self):
         pass
@@ -45,7 +45,7 @@ class Tank(Frog):
         super().__init__()
 
     def calculate_armor(self):
-        return random.randint(math.floor(self.armor / 2), self.armor)
+        return randint(floor(self.armor / 2), self.armor)
 
     def modify_params(self):
         pass
